@@ -1,8 +1,6 @@
 import React from 'react';
 import { ArrowRight, Star, Sparkles } from 'lucide-react';
-
-// Custom image path from generated assets
-const HERO_BG_IMAGE = '/src/assets/images/hero_potrait.png';
+import HERO_BG_IMAGE from '../assets/images/hero_potrait.png';
 
 export default function Hero() {
   const scrollToQuestionnaire = () => {
