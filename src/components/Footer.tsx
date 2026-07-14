@@ -17,10 +17,10 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-12 gap-12 pb-12 border-b border-zinc-200">
           
           {/* Brand/About Block */}
-          <div className="md:col-span-4 space-y-6">
-            <div className="flex items-center gap-2 cursor-pointer" onClick={() => scrollToSection('hero')}>
+          <div className="md:col-span-4 space-y-6 text-right md:text-left flex flex-col items-end md:items-start">
+            <div className="flex items-center gap-2 cursor-pointer flex-row-reverse md:flex-row" onClick={() => scrollToSection('hero')}>
               <Camera className="w-6 h-6 text-[#8B1E32]" />
-              <div className="flex flex-col">
+              <div className="flex flex-col text-right md:text-left">
                 <span className="font-display font-bold tracking-widest text-lg text-neutral-900 leading-none">
                   STUNTS<span className="text-[#8B1E32] text-xs font-mono lowercase ml-0.5">pta</span>
                 </span>
@@ -34,14 +34,14 @@ export default function Footer() {
               Whether you&apos;re capturing a milestone, promoting your brand, or producing your next project, we&apos;re here to deliver professional results from start to finish.
             </p>
 
-            <div className="space-y-3 font-mono text-[11px] text-zinc-650">
-              <div className="flex items-center gap-3">
+            <div className="space-y-3 font-mono text-[11px] text-zinc-650 flex flex-col items-end md:items-start w-full">
+              <div className="flex items-center gap-3 flex-row-reverse md:flex-row">
                 <Mail className="w-3.5 h-3.5 text-[#8B1E32]" />
                 <a href="mailto:stuntsphotostudio@gmail.com" className="hover:text-[#8B1E32] transition-colors">
                   stuntsphotostudio@gmail.com
                 </a>
               </div>
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-3 flex-row-reverse md:flex-row">
                 <MessageCircle className="w-3.5 h-3.5 text-[#8B1E32]" />
                 <a 
                   href="https://wa.me/27645153586" 
@@ -52,7 +52,7 @@ export default function Footer() {
                   064 515 3586
                 </a>
               </div>
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-3 flex-row-reverse md:flex-row">
                 <MapPin className="w-3.5 h-3.5 text-[#8B1E32]" />
                 <span className="text-zinc-500">
                   Somewhere in Pretoria
@@ -62,14 +62,14 @@ export default function Footer() {
           </div>
 
           {/* Follow Us / Social Links */}
-          <div className="md:col-span-3 md:col-start-10 space-y-4">
+          <div className="md:col-span-3 md:col-start-10 space-y-4 text-right md:text-left flex flex-col items-end md:items-start">
             <h4 className="font-mono text-xs tracking-widest text-[#8B1E32] uppercase font-bold">
               Let&apos;s Connect
             </h4>
             <p className="text-zinc-600 text-xs font-light leading-relaxed">
               See our latest productions on Instagram and TikTok, or reach out directly on WhatsApp.
             </p>
-            <div className="flex gap-3">
+            <div className="flex gap-3 justify-end md:justify-start">
               {[
                 { icon: Instagram, href: 'https://www.instagram.com/stunts_photography_pretoria?igsh=bXQzZnZ1dHN4cjVi', label: 'Instagram' },
                 { icon: Video, href: 'https://www.tiktok.com/@stunts_photography?_r=1&_t=ZS-97yPgLZYjmy', label: 'TikTok' },
