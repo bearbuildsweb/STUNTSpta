@@ -12,6 +12,23 @@ const MOOD_OPTIONS = [
   'Not Sure Yet'
 ];
 
+const formatDate = (dateString: string) => {
+  if (!dateString) return 'To be determined';
+  try {
+    const date = new Date(dateString);
+    if (!isNaN(date.getTime())) {
+      return date.toLocaleDateString('en-US', {
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric'
+      });
+    }
+  } catch (e) {
+    // ignore
+  }
+  return dateString;
+};
+
 export default function QuestionnaireForm() {
   const [formData, setFormData] = useState({
     name: '',
@@ -79,7 +96,7 @@ export default function QuestionnaireForm() {
       serviceType: formData.serviceType,
       packageId: 'Custom Project',
       eventDate: formData.eventDate || 'To be determined',
-      location: 'Studio',
+      location: formData.visualMood[0] || 'Not Sure Yet',
       budget: 'Custom Estimate Needed',
       visualMood: formData.visualMood,
       notes: formData.notes,
@@ -224,30 +241,67 @@ export default function QuestionnaireForm() {
           
           {isSubmitted && currentSubmission ? (
             /* Success confirmation screen with subtle animations */
-            <div className="text-center py-12 animate-fade-in">
+            <div className="text-center py-12 animate-fade-in max-w-lg mx-auto">
               <div className="w-16 h-16 rounded-full bg-[#AC2E46]/10 border border-[#AC2E46]/30 flex items-center justify-center text-[#8B1E32] mx-auto mb-6">
                 <CheckCircle2 className="w-8 h-8 animate-pulse" />
               </div>
-              <h3 className="font-display text-2xl font-bold text-neutral-900 mb-2">
-                Thank You, {currentSubmission.name}!
+              
+              <h3 className="font-display text-2xl font-bold text-neutral-900 mb-1">
+                Booking Enquiry Received
               </h3>
-              <p className="text-zinc-600 text-sm max-w-md mx-auto font-light leading-relaxed mb-6">
-                Your questionnaire response has been submitted successfully. We have preserved your local reference token.
+              
+              <h4 className="text-lg font-medium text-neutral-800 mb-4">
+                Thanks, {currentSubmission.name.trim().split(' ')[0]}
+              </h4>
+              
+              <p className="text-zinc-650 text-sm max-w-md mx-auto font-light leading-relaxed mb-8">
+                We&apos;ve received your booking enquiry and will review it shortly.
               </p>
 
               {/* Submission ticket card */}
-              <div className="max-w-md mx-auto bg-zinc-50 border border-zinc-200 rounded-sm p-6 text-left mb-8 space-y-4 shadow-inner">
-                <div className="flex justify-between items-center border-b border-zinc-200 pb-3">
-                  <span className="font-mono text-xs text-zinc-500">REFERENCE NUMBER</span>
+              <div className="bg-zinc-50 border border-zinc-200 rounded-sm p-6 text-left mb-6 space-y-4 shadow-inner">
+                <div>
+                  <span className="block font-mono text-[10px] uppercase tracking-widest text-zinc-400 mb-1">Reference Number</span>
                   <span className="font-mono text-sm font-bold text-[#8B1E32]">{currentSubmission.id}</span>
                 </div>
-                <div className="space-y-2 text-xs">
-                  <p><strong className="text-zinc-500 uppercase font-mono tracking-wider">Service:</strong> <span className="text-neutral-800 font-medium">{currentSubmission.serviceType}</span></p>
-                  <p><strong className="text-zinc-500 uppercase font-mono tracking-wider">Preferred Date:</strong> <span className="text-neutral-800 font-medium">{currentSubmission.eventDate}</span></p>
-                  {currentSubmission.visualMood.length > 0 && (
-                    <p><strong className="text-zinc-500 uppercase font-mono tracking-wider">Selected Vibes:</strong> <span className="text-[#8B1E32] font-medium">{currentSubmission.visualMood.join(', ')}</span></p>
-                  )}
+                
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4 border-t border-zinc-200">
+                  <div>
+                    <span className="block font-mono text-[10px] uppercase tracking-widest text-zinc-400 mb-1">Service</span>
+                    <span className="text-sm font-medium text-neutral-800">{currentSubmission.serviceType}</span>
+                  </div>
+                  
+                  <div>
+                    <span className="block font-mono text-[10px] uppercase tracking-widest text-zinc-400 mb-1">Preferred Date</span>
+                    <span className="text-sm font-medium text-neutral-800">{formatDate(currentSubmission.eventDate)}</span>
+                  </div>
+                  
+                  <div>
+                    <span className="block font-mono text-[10px] uppercase tracking-widest text-zinc-400 mb-1">Location</span>
+                    <span className="text-sm font-medium text-neutral-800">{currentSubmission.location}</span>
+                  </div>
                 </div>
+              </div>
+
+              {/* What's next? section */}
+              <div className="text-left bg-zinc-50 border border-zinc-200 rounded-sm p-5 mb-8">
+                <h5 className="font-mono text-xs tracking-wider text-[#8B1E32] font-bold uppercase mb-3">
+                  What&apos;s next?
+                </h5>
+                <ul className="space-y-2 text-xs text-zinc-600 font-light">
+                  <li className="flex items-start gap-2">
+                    <span className="text-[#8B1E32] font-semibold">✓</span>
+                    <span>We&apos;ll review your enquiry.</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-[#8B1E32] font-semibold">✓</span>
+                    <span>We&apos;ll contact you within 24 hours.</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-[#8B1E32] font-semibold">✓</span>
+                    <span>We&apos;ll confirm the next steps with you.</span>
+                  </li>
+                </ul>
               </div>
 
               <div className="flex justify-center gap-4">
