@@ -1,9 +1,7 @@
 import React from 'react';
 import * as Icons from 'lucide-react';
 import { SERVICES } from '../data';
-
-// Path to generated services image
-const SERVICES_IMAGE = '/src/assets/images/services_potrait.png';
+import SERVICES_IMAGE from '../assets/images/services_potrait.png';
 
 export default function Services() {
   const scrollToAndSelectService = (serviceTitle: string) => {
