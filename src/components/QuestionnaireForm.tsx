@@ -4,9 +4,7 @@ import {
   Sparkles, Send, CheckCircle2, Trash2, History 
 } from 'lucide-react';
 import { QuestionnaireResponse } from '../types';
-
-// Path to background image
-const CONTACT_BG_IMAGE = '/src/assets/images/stunts_contact_bg_1783932447394.jpg';
+import CONTACT_BG_IMAGE from '../assets/images/stunts_contact_bg_1783932447394.jpg';
 
 const MOOD_OPTIONS = [
   'Cinematic & Deep', 
