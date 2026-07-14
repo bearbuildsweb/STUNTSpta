@@ -7,12 +7,9 @@ import { QuestionnaireResponse } from '../types';
 import CONTACT_BG_IMAGE from '../assets/images/stunts_contact_bg_1783932447394.jpg';
 
 const MOOD_OPTIONS = [
-  'Cinematic & Deep', 
-  'Minimalist & Elegant', 
-  'Warm & Nostalgic', 
-  'Moody & High-Contrast', 
-  'Bright & Editorial',
-  'Avant-Garde & Raw'
+  'At the STUNTS Studio',
+  'Client Location',
+  'Not Sure Yet'
 ];
 
 export default function QuestionnaireForm() {
@@ -58,8 +55,8 @@ export default function QuestionnaireForm() {
   const toggleMood = (mood: string) => {
     setFormData(prev => {
       const moods = prev.visualMood.includes(mood)
-        ? prev.visualMood.filter(m => m !== mood)
-        : [...prev.visualMood, mood];
+        ? []
+        : [mood];
       return { ...prev, visualMood: moods };
     });
   };
@@ -80,10 +77,10 @@ export default function QuestionnaireForm() {
       email: formData.email,
       phone: formData.phone,
       serviceType: formData.serviceType,
-      packageId: formData.packageName || 'Custom Project',
+      packageId: 'Custom Project',
       eventDate: formData.eventDate || 'To be determined',
-      location: formData.location || 'Remote / Studio',
-      budget: formData.packageName ? 'Package Standard' : 'Custom Estimate Needed',
+      location: 'Studio',
+      budget: 'Custom Estimate Needed',
       visualMood: formData.visualMood,
       notes: formData.notes,
       createdAt: new Date().toLocaleDateString('en-US', {
@@ -141,15 +138,15 @@ export default function QuestionnaireForm() {
         <div className="text-center mb-12">
           <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#AC2E46]/10 border border-[#AC2E46]/20 rounded-full mb-4">
             <Sparkles className="w-3.5 h-3.5 text-[#8B1E32]" />
-            <span className="font-mono text-[9px] tracking-[0.25em] text-[#8B1E32] uppercase font-semibold">
+            <span className="font-mono text-[9px] lg:text-[11px] tracking-[0.25em] text-[#8B1E32] uppercase font-semibold">
               WORK WITH US
             </span>
           </div>
           <h2 className="font-display text-3xl sm:text-4xl font-bold tracking-tight text-neutral-900 mb-4">
-            Contact Us Today To Get Started On Your Next Project
+            Start Your Booking
           </h2>
           <p className="text-zinc-600 text-sm sm:text-base max-w-xl mx-auto font-light leading-relaxed">
-            Fill out our modern, interactive questionnaire below to align your creative goals, preferred aesthetics, and camera specifications.
+            Complete the short questionnaire below and tell us about your project. We'll be in touch to discuss the details and your preferred booking date.
           </p>
         </div>
 
@@ -197,9 +194,7 @@ export default function QuestionnaireForm() {
                     </div>
                     <div className="text-zinc-650 text-xs space-y-1 sm:text-right sm:border-l sm:border-zinc-200 sm:pl-4">
                       <p><strong className="text-zinc-400 uppercase font-mono tracking-wider text-[10px]">Service:</strong> <span className="text-neutral-800">{sub.serviceType}</span></p>
-                      <p><strong className="text-zinc-400 uppercase font-mono tracking-wider text-[10px]">Package:</strong> <span className="text-neutral-800">{sub.packageId}</span></p>
-                      <p><strong className="text-zinc-400 uppercase font-mono tracking-wider text-[10px]">Date:</strong> <span className="text-neutral-800">{sub.eventDate}</span></p>
-                      <p><strong className="text-zinc-400 uppercase font-mono tracking-wider text-[10px]">Venue:</strong> <span className="text-neutral-800">{sub.location}</span></p>
+                      <p><strong className="text-zinc-400 uppercase font-mono tracking-wider text-[10px]">Preferred Date:</strong> <span className="text-neutral-800">{sub.eventDate}</span></p>
                     </div>
                   </div>
 
@@ -247,10 +242,8 @@ export default function QuestionnaireForm() {
                   <span className="font-mono text-sm font-bold text-[#8B1E32]">{currentSubmission.id}</span>
                 </div>
                 <div className="space-y-2 text-xs">
-                  <p><strong className="text-zinc-500 uppercase font-mono tracking-wider">Service Type:</strong> <span className="text-neutral-800 font-medium">{currentSubmission.serviceType}</span></p>
-                  <p><strong className="text-zinc-500 uppercase font-mono tracking-wider">Requested Tier:</strong> <span className="text-neutral-800 font-medium">{currentSubmission.packageId}</span></p>
-                  <p><strong className="text-zinc-500 uppercase font-mono tracking-wider">Date & Time:</strong> <span className="text-neutral-800 font-medium">{currentSubmission.eventDate}</span></p>
-                  <p><strong className="text-zinc-500 uppercase font-mono tracking-wider">Target Venue:</strong> <span className="text-neutral-800 font-medium">{currentSubmission.location}</span></p>
+                  <p><strong className="text-zinc-500 uppercase font-mono tracking-wider">Service:</strong> <span className="text-neutral-800 font-medium">{currentSubmission.serviceType}</span></p>
+                  <p><strong className="text-zinc-500 uppercase font-mono tracking-wider">Preferred Date:</strong> <span className="text-neutral-800 font-medium">{currentSubmission.eventDate}</span></p>
                   {currentSubmission.visualMood.length > 0 && (
                     <p><strong className="text-zinc-500 uppercase font-mono tracking-wider">Selected Vibes:</strong> <span className="text-[#8B1E32] font-medium">{currentSubmission.visualMood.join(', ')}</span></p>
                   )}
@@ -306,7 +299,7 @@ export default function QuestionnaireForm() {
                         name="name"
                         value={formData.name}
                         onChange={handleInputChange}
-                        placeholder="e.g. Albert Lee"
+                        placeholder="e.g. Sipho Dlamini"
                         className="w-full bg-zinc-50 border border-zinc-200 focus:border-[#AC2E46] focus:bg-white rounded-sm py-3 pl-11 pr-4 text-sm text-neutral-900 placeholder-zinc-400 focus:outline-none transition-all duration-200"
                         required
                       />
@@ -324,7 +317,7 @@ export default function QuestionnaireForm() {
                         name="email"
                         value={formData.email}
                         onChange={handleInputChange}
-                        placeholder="e.g. leeualbertm@gmail.com"
+                        placeholder="e.g. sipho.dlamini@gmail.com"
                         className="w-full bg-zinc-50 border border-zinc-200 focus:border-[#AC2E46] focus:bg-white rounded-sm py-3 pl-11 pr-4 text-sm text-neutral-900 placeholder-zinc-400 focus:outline-none transition-all duration-200"
                         required
                       />
@@ -333,7 +326,7 @@ export default function QuestionnaireForm() {
 
                   {/* Phone field */}
                   <div className="relative">
-                    <label htmlFor="form-phone" className="block text-zinc-600 text-xs font-mono mb-2">PHONE NUMBER</label>
+                    <label htmlFor="form-phone" className="block text-zinc-600 text-xs font-mono mb-2">PHONE / WHATSAPP</label>
                     <div className="relative">
                       <Phone className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-400" />
                       <input
@@ -342,7 +335,7 @@ export default function QuestionnaireForm() {
                         name="phone"
                         value={formData.phone}
                         onChange={handleInputChange}
-                        placeholder="e.g. +1 (555) 019-2834"
+                        placeholder="e.g. +27 82 123 4567"
                         className="w-full bg-zinc-50 border border-zinc-200 focus:border-[#AC2E46] focus:bg-white rounded-sm py-3 pl-11 pr-4 text-sm text-neutral-900 placeholder-zinc-400 focus:outline-none transition-all duration-200"
                       />
                     </div>
@@ -357,9 +350,9 @@ export default function QuestionnaireForm() {
                 </h3>
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  {/* Service type selection */}
+                  {/* Service selection */}
                   <div>
-                    <label htmlFor="questionnaire-service" className="block text-zinc-600 text-xs font-mono mb-2">SERVICE TYPE *</label>
+                    <label htmlFor="questionnaire-service" className="block text-zinc-600 text-xs font-mono mb-2">SERVICE *</label>
                     <select
                       id="questionnaire-service"
                       name="serviceType"
@@ -368,35 +361,17 @@ export default function QuestionnaireForm() {
                       className="w-full bg-zinc-50 border border-zinc-200 focus:border-[#AC2E46] focus:bg-white rounded-sm py-3 px-4 text-sm text-neutral-900 focus:outline-none transition-all duration-200"
                       required
                     >
-                      <option value="" className="text-zinc-400">-- Choose visual service --</option>
-                      <option value="Personal Moments">Personal Moments (Portraits, Graduations, Family, etc.)</option>
-                      <option value="Business & Events">Business & Events (Corporate, Conferences, Brand Content)</option>
-                      <option value="Creative Studio">Creative Studio (Podcast, Studio Rental, Custom)</option>
+                      <option value="" className="text-zinc-400">What can we help you with?</option>
+                      <option value="Photography">Photography</option>
+                      <option value="Videography">Videography</option>
+                      <option value="Podcast Studio">Podcast Studio</option>
+                      <option value="Studio Hire">Studio Hire</option>
                     </select>
                   </div>
 
-                  {/* Pricing Package selection */}
+                  {/* Preferred Date */}
                   <div>
-                    <label htmlFor="questionnaire-package" className="block text-zinc-600 text-xs font-mono mb-2">PREFERRED TIER / PACKAGE</label>
-                    <select
-                      id="questionnaire-package"
-                      name="packageName"
-                      value={formData.packageName}
-                      onChange={handleInputChange}
-                      className="w-full bg-zinc-50 border border-zinc-200 focus:border-[#AC2E46] focus:bg-white rounded-sm py-3 px-4 text-sm text-neutral-900 focus:outline-none transition-all duration-200"
-                    >
-                      <option value="" className="text-zinc-400">-- Let us help you choose --</option>
-                      <option value="Starter Package">Starter Package ($299 / Session)</option>
-                      <option value="Standard Production">Standard Production ($599 / Package)</option>
-                      <option value="Corporate & Editorial">Corporate & Editorial ($999 / Campaign)</option>
-                    </select>
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  {/* Event Date */}
-                  <div>
-                    <label htmlFor="form-eventDate" className="block text-zinc-600 text-xs font-mono mb-2">TARGET DATE</label>
+                    <label htmlFor="form-eventDate" className="block text-zinc-600 text-xs font-mono mb-2">PREFERRED DATE *</label>
                     <div className="relative">
                       <Calendar className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-400" />
                       <input
@@ -406,23 +381,7 @@ export default function QuestionnaireForm() {
                         value={formData.eventDate}
                         onChange={handleInputChange}
                         className="w-full bg-zinc-50 border border-zinc-200 focus:border-[#AC2E46] focus:bg-white rounded-sm py-3 pl-11 pr-4 text-sm text-neutral-900 focus:outline-none transition-all duration-200"
-                      />
-                    </div>
-                  </div>
-
-                  {/* Location / Venue */}
-                  <div>
-                    <label htmlFor="form-location" className="block text-zinc-600 text-xs font-mono mb-2">LOCATION / VENUE</label>
-                    <div className="relative">
-                      <MapPin className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-400" />
-                      <input
-                        id="form-location"
-                        type="text"
-                        name="location"
-                        value={formData.location}
-                        onChange={handleInputChange}
-                        placeholder="e.g. Sunset Studio, Beverly Hills, CA"
-                        className="w-full bg-zinc-50 border border-zinc-200 focus:border-[#AC2E46] focus:bg-white rounded-sm py-3 pl-11 pr-4 text-sm text-neutral-900 placeholder-zinc-400 focus:outline-none transition-all duration-200"
+                        required
                       />
                     </div>
                   </div>
@@ -432,10 +391,10 @@ export default function QuestionnaireForm() {
               {/* Step 3: Aesthetic/Vibe Selection */}
               <div className="space-y-4">
                 <h3 className="block text-zinc-600 text-xs font-mono uppercase border-b border-zinc-200 pb-2">
-                  03. Select Target Aesthetic Vibes
+                  03. Where will the shoot take place?
                 </h3>
                 <p className="text-zinc-500 text-xs font-light">
-                  Choose one or more styles that align with your brand, script narrative, or desired production values.
+                  Whether it's in our studio or at your location, we'll come prepared.
                 </p>
                 <div className="flex flex-wrap gap-2.5">
                   {MOOD_OPTIONS.map((mood) => {
@@ -461,7 +420,7 @@ export default function QuestionnaireForm() {
               {/* Step 4: Narrative Description */}
               <div className="space-y-4">
                 <label htmlFor="questionnaire-notes" className="block text-zinc-600 text-xs font-mono uppercase">
-                  04. Project Description & Special Requirements
+                  04. Tell us a little more (Optional)
                 </label>
                 <textarea
                   id="questionnaire-notes"
@@ -469,7 +428,7 @@ export default function QuestionnaireForm() {
                   value={formData.notes}
                   onChange={handleInputChange}
                   rows={4}
-                  placeholder="Share details regarding your storyboards, lighting cues, desired runtimes, background music, target delivery schedules, or other specific equipment requirements..."
+                  placeholder="Share any important details about your project, ideas, or requirements."
                   className="w-full bg-zinc-50 border border-zinc-200 focus:border-[#AC2E46] focus:bg-white rounded-sm p-4 text-sm text-neutral-900 placeholder-zinc-400 focus:outline-none transition-all duration-200 resize-y font-light leading-relaxed"
                 ></textarea>
               </div>
@@ -477,13 +436,13 @@ export default function QuestionnaireForm() {
               {/* Submit Action */}
               <div className="border-t border-zinc-200 pt-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                 <p className="text-zinc-500 text-xs font-light">
-                  By submitting this visual brief, our creative team will formulate custom storyboards matching your exact aesthetic layout within 24 hours.
+                  Thanks for reaching out. We'll review your enquiry and respond within 24 hours.
                 </p>
                 <button
                   type="submit"
                   className="group flex items-center justify-center gap-2 bg-[#AC2E46] hover:bg-[#8B1E32] text-white font-mono font-bold text-xs tracking-widest px-8 py-4 rounded-sm transition-all duration-300 transform active:scale-95 shadow-lg shadow-[#AC2E46]/10 cursor-pointer uppercase shrink-0"
                 >
-                  SUBMIT SPEC BRIEF
+                  Submit Enquiry
                   <Send className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                 </button>
               </div>
